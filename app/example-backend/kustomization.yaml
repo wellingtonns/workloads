@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: example-backend
+namePrefix: example-backend-
+
+resources:
+  - namespace.yaml
+  - ../../base
+
+images:
+  - name: app-image
+    newName: ghcr.io/example/example-backend
+    newTag: latest
+
+patches:
+  - path: deployment-patch.yaml
+  - path: ingress-patch.yaml
+
+commonLabels:
+  app.kubernetes.io/part-of: example-backend
