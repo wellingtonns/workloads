@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: {{APP_NAME}}
+resources:
+  - ../../base
+  - externalsecret.yaml
+  - configmap.yaml
+images:
+  - name: app
+    newName: europe-west2-docker.pkg.dev/devops/name-registry/{{APP_NAME}}
+    newTag: 09737333d23d56fb096ce972f338641867a13001
+    
+patches:
+  - target:
+      kind: Rollout
+      name: {{APP_NAME}}
+    path: patches/rollout.yaml
+  - target:
+      kind: HorizontalPodAutoscaler
+      name: {{APP_NAME}}
+    path: patches/hpa.yaml
+  - target:
+      kind: Ingress
+      name: {{APP_NAME}}
+    path: patches/ingress.yaml

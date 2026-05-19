@@ -1,0 +1,77 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: app
+  annotations:
+    reloader.stakater.com/auto: "true"
+  labels:
+    app: app
+    app.kubernetes.io/name: app
+    app.kubernetes.io/instance: app
+spec:
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: app
+      app.kubernetes.io/name: app
+      app.kubernetes.io/instance: app
+  strategy:
+    canary:
+      canaryService: app-canary
+      stableService: app
+      steps:
+        - setWeight: 10
+        - pause:
+            duration: 1m
+        - setWeight: 100
+  template:
+    metadata:
+      labels:
+        app: app
+        app.kubernetes.io/name: app
+        app.kubernetes.io/instance: app
+    spec:
+      serviceAccountName: app
+      automountServiceAccountToken: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+        - name: docker-registry
+      containers:
+        - name: app
+          image: app:latest
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: metrics
+              containerPort: 9110
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: app-envs
+                optional: true
+            - secretRef:
+                name: app-secrets
+                optional: true
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 30
+            failureThreshold: 5
+            timeoutSeconds: 10
+            periodSeconds: 30
