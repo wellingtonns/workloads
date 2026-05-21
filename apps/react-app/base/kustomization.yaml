@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../../base
+components:
+  - ../../../base/components/app-common
+
+configMapGenerator:
+  - name: service-name
+    literals:
+      - SERVICE_NAME=react-app
+      - APP_PORT=8080
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+labels:
+  - pairs:
+      app: react-app
+    includeSelectors: true
+    includeTemplates: true
