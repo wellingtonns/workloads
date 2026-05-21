@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: go-app-envs
+  namespace: go-app
+data:
+  ENV: dev
