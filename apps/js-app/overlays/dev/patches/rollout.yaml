@@ -1,0 +1,17 @@
+- op: replace
+  path: /spec/strategy/canary/steps
+  value:
+    - setWeight: 10
+    - pause:
+        duration: 30s
+    - setWeight: 100
+
+- op: replace
+  path: /spec/template/spec/containers/0/resources
+  value:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
