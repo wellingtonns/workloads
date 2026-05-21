@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dev
+    external-dns.alpha.kubernetes.io/hostname: python-app.dominio.com.br
+spec:
+  rules:
+    - host: python-app.dominio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: python-app
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - python-app.dominio.com.br
+      secretName: python-app-letsencrypt-secret
