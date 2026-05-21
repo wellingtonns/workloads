@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: app-clinica
 resources:
-  - ../../base
-  - externalsecret.yaml
-  - configmap.yaml
+- ../../base
+- externalsecret.yaml
+- configmap.yaml
 images:
-  - name: app
-    newName: europe-west2-docker.pkg.dev/devops/name-registry/app-clinica
-    newTag: a4450379e7578a13d5deec46330d38d22d5a1472
+- name: app
+  newName: ghcr.io/wellingtonns/app-clinica
+  newTag: 68b13bfc8c31a27381b6b52a20121564466ce322
 
 patches:
-  - target:
-      kind: Rollout
-      name: app-clinica
-    path: patches/rollout.yaml
-  - target:
-      kind: HorizontalPodAutoscaler
-      name: app-clinica
-    path: patches/hpa.yaml
-  - target:
-      kind: Ingress
-      name: app-clinica
-    path: patches/ingress.yaml
+- path: patches/rollout.yaml
+  target:
+    kind: Rollout
+    name: app-clinica
+- path: patches/hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+    name: app-clinica
+- path: patches/ingress.yaml
+  target:
+    kind: Ingress
+    name: app-clinica
