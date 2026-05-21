@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: react-app
 resources:
-  - ../../base
-  - externalsecret.yaml
-  - configmap.yaml
+- ../../base
+- externalsecret.yaml
+- configmap.yaml
 images:
-  - name: app
-    newName: europe-west2-docker.pkg.dev/devops/name-registry/react-app
-    newTag: a4450379e7578a13d5deec46330d38d22d5a1472
+- name: app
+  newName: ghcr.io/wellingtonns/react-app
+  newTag: fd3d96f9ee335eb7714c614245250c4cab79475a
 
 patches:
-  - target:
-      kind: Rollout
-      name: react-app
-    path: patches/rollout.yaml
-  - target:
-      kind: HorizontalPodAutoscaler
-      name: react-app
-    path: patches/hpa.yaml
-  - target:
-      kind: Ingress
-      name: react-app
-    path: patches/ingress.yaml
+- path: patches/rollout.yaml
+  target:
+    kind: Rollout
+    name: react-app
+- path: patches/hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+    name: react-app
+- path: patches/ingress.yaml
+  target:
+    kind: Ingress
+    name: react-app
