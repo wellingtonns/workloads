@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: react-app-envs
+  namespace: react-app
+data:
+  ENV: prd
