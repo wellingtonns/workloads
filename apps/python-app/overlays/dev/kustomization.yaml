@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: python-app
 resources:
-  - ../../base
-  - externalsecret.yaml
-  - configmap.yaml
+- ../../base
+- externalsecret.yaml
+- configmap.yaml
 images:
-  - name: app
-    newName: europe-west2-docker.pkg.dev/devops/name-registry/python-app
-    newTag: 09737333d23d56fb096ce972f338641867a13001
+- name: app
+  newName: ghcr.io/wellingtonns/python-app
+  newTag: 9a93b19e6a1a329bfaa56c9f50760c78ffb85aba
     
 patches:
-  - target:
-      kind: Rollout
-      name: python-app
-    path: patches/rollout.yaml
-  - target:
-      kind: HorizontalPodAutoscaler
-      name: python-app
-    path: patches/hpa.yaml
-  - target:
-      kind: Ingress
-      name: python-app
-    path: patches/ingress.yaml
+- path: patches/rollout.yaml
+  target:
+    kind: Rollout
+    name: python-app
+- path: patches/hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+    name: python-app
+- path: patches/ingress.yaml
+  target:
+    kind: Ingress
+    name: python-app
