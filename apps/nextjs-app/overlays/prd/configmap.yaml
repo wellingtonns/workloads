@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextjs-app-envs
+  namespace: nextjs-app
+data:
+  ENV: prd
