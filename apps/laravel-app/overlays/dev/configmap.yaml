@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: laravel-app-envs
+  namespace: laravel-app
+data:
+  ENV: dev
