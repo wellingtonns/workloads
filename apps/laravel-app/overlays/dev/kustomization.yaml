@@ -2,24 +2,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: laravel-app
 resources:
-  - ../../base
-  - externalsecret.yaml
-  - configmap.yaml
+- ../../base
+- externalsecret.yaml
+- configmap.yaml
 images:
-  - name: app
-    newName: europe-west2-docker.pkg.dev/devops/name-registry/laravel-app
-    newTag: 09737333d23d56fb096ce972f338641867a13001
+- name: app
+  newName: ghcr.io/wellingtonns/laravel-app
+  newTag: bff9004887e15308e0f4e00986538e250f14c328
     
 patches:
-  - target:
-      kind: Rollout
-      name: laravel-app
-    path: patches/rollout.yaml
-  - target:
-      kind: HorizontalPodAutoscaler
-      name: laravel-app
-    path: patches/hpa.yaml
-  - target:
-      kind: Ingress
-      name: laravel-app
-    path: patches/ingress.yaml
+- path: patches/rollout.yaml
+  target:
+    kind: Rollout
+    name: laravel-app
+- path: patches/hpa.yaml
+  target:
+    kind: HorizontalPodAutoscaler
+    name: laravel-app
+- path: patches/ingress.yaml
+  target:
+    kind: Ingress
+    name: laravel-app
