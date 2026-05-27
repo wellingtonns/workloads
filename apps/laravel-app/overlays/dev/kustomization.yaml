@@ -8,7 +8,7 @@ resources:
 images:
 - name: app
   newName: ghcr.io/wellingtonns/laravel-app
-  newTag: bff9004887e15308e0f4e00986538e250f14c328
+  newTag: 9bb4b3c3b0a774344ad7c556b6689906e06096b3
     
 patches:
 - path: patches/rollout.yaml
