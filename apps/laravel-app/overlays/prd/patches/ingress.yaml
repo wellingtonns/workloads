@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prd
+    external-dns.alpha.kubernetes.io/hostname: laravel-app.dominio.com.br
+spec:
+  rules:
+    - host: laravel-app.dominio.com.br
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: laravel-app
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - laravel-app.dominio.com.br
+      secretName: laravel-app-letsencrypt-secret
