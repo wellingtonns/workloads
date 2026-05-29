@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node-app-envs
+  namespace: node-app
+data:
+  ENV: dev
