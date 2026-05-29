@@ -8,7 +8,7 @@ resources:
 images:
 - name: app
   newName: ghcr.io/wellingtonns/react-app
-  newTag: fd3d96f9ee335eb7714c614245250c4cab79475a
+  newTag: 57ff56c293bf18175195074ad830ef9ed807098c
 
 patches:
 - path: patches/rollout.yaml
