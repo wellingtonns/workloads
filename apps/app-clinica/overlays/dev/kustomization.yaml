@@ -8,7 +8,7 @@ resources:
 images:
 - name: app
   newName: ghcr.io/wellingtonns/app-clinica
-  newTag: 5a1d91f582e1f30ac2de19cc9644e2114ab89c07
+  newTag: 1725b4ba8d4f54b0b3c7c2c4cc3be56b9e6fcb5b
     
 patches:
 - path: patches/rollout.yaml
